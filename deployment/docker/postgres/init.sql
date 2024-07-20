@@ -1,1 +1,2 @@
 create database bookstore_backend;
+create database bookstore_keycloak;

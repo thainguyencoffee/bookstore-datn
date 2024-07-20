@@ -1,6 +1,7 @@
 version: "3.8"
 
 services:
+
   bookstore-datn-postgres:
     image: postgres:16
     container_name: "bookstore-datn-postgres"
@@ -11,3 +12,22 @@ services:
       - POSTGRES_PASSWORD=password
     volumes:
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  bookstore-datn-keycloak:
+    image: quay.io/keycloak/keycloak:23.0
+    depends_on: [ bookstore-datn-postgres ]
+    container_name: bookstore-datn-keycloak
+    restart: always
+    command: start-dev --import-realm --features=preview
+    volumes:
+      - ./keycloak:/opt/keycloak/data/import
+    environment:
+      - KC_DB=postgres
+      - KC_DB_USERNAME=user
+      - KC_DB_PASSWORD=password
+      - KC_DB_URL=jdbc:postgresql://bookstore-datn-postgres:5432/bookstore_keycloak
+      - KC_FEATURES=scripts
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=password
+    ports:
+      - 8080:8080
