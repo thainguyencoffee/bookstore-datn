@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+  bookstore-datn-postgres:
+    image: postgres:16
+    container_name: "bookstore-datn-postgres"
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
