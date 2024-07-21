@@ -10,7 +10,7 @@ public class BookUpdateDto {
 
     private String title;
     private String author;
-    @Min(value = 0,message = "Price is not negative number")
+    @Min(value = 1000, message = "The price of book must be greater than 1000 VND")
     private Long price;
 
 }

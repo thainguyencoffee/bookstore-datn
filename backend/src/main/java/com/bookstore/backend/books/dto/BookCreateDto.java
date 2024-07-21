@@ -1,14 +1,9 @@
 package com.bookstore.backend.books.dto;
 
 import com.bookstore.backend.books.Book;
-import com.bookstore.backend.core.config.DataAuditConfig;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Getter
 @Setter
@@ -23,6 +18,7 @@ public class BookCreateDto{
     @NotBlank(message = "The author must be not blank")
     private String author;
     @NotNull(message = "The price must be not null")
+    @Min(value = 1000, message = "The price of book must be greater than 1000 VND")
     private Long price;
     public static Book toEntity(BookCreateDto dto) {
         Book book = new Book();
