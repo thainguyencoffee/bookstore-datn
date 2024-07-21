@@ -8,11 +8,12 @@ import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api/books")
+@RequestMapping(path = "/api/books", produces = MediaType.APPLICATION_JSON_VALUE)
 public class BookController {
 
     private final BookService bookService;
@@ -47,7 +48,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{isbn}")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteBook(@PathVariable String isbn) {
         bookService.deleteBook(isbn);
     }

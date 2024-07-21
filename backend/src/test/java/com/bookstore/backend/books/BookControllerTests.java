@@ -200,7 +200,7 @@ class BookControllerTests extends IntegrationTestsBase {
 
 
     @Test
-    void whenDeleteBookThen200() {
+    void whenBookExistingAndDeleteBookThen204() {
         Book book = new Book();
         book.setIsbn("1234567891");
         book.setTitle("Meo Meo");
@@ -211,7 +211,21 @@ class BookControllerTests extends IntegrationTestsBase {
                 .uri("/api/books/{isbn}", "1234567891")
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(employeeToken.getAccessToken()))
                 .exchange()
-                .expectStatus().isOk();
+                .expectStatus().isNoContent();
+    }
+
+    @Test
+    void whenBookNotExistingAndDeleteBookThen404() {
+        Book book = new Book();
+        book.setIsbn("1234567891");
+        book.setTitle("Meo Meo");
+        book.setPrice(5000L);
+        book.setAuthor("Meo1");
+        webTestClient.delete()
+                .uri("/api/books/{isbn}", "1234567891")
+                .headers(httpHeaders -> httpHeaders.setBearerAuth(employeeToken.getAccessToken()))
+                .exchange()
+                .expectStatus().isNotFound();
     }
 
     @Test

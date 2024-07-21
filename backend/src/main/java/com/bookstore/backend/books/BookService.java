@@ -24,6 +24,7 @@ public class BookService {
                 new CustomNoResultException(Book.class, String.format("Book with isbn %s not found in database", isbn)));
     }
 
+    @Transactional
     public Book addBook(BookCreateDto book) {
         return bookRepository.save(BookCreateDto.toEntity(book));
     }
