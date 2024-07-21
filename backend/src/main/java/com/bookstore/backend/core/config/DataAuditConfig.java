@@ -26,7 +26,8 @@ public class DataAuditConfig {
                     } else {
                         return "guest";
                     }
-                });
+                })
+                .orElse("guest").describeConstable();
     }
 
 }
