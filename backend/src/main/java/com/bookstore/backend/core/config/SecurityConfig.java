@@ -24,7 +24,8 @@ public class SecurityConfig {
                                 "/api/books/{isbn}/reviews",
                                 "/api/books/{isbn}/reviews/{id}",
                                 "/api/books",
-                                "/api/books/{isbn}").permitAll()
+                                "/api/books/{isbn}",
+                                "/api/vouchers/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET,
                         "/api/orders","/api/orders/**").authenticated()
