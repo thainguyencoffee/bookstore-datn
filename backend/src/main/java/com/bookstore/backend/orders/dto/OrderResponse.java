@@ -1,5 +1,6 @@
-package com.bookstore.backend.orders;
+package com.bookstore.backend.orders.dto;
 
+import com.bookstore.backend.orders.Order;
 import lombok.*;
 
 import java.time.Instant;

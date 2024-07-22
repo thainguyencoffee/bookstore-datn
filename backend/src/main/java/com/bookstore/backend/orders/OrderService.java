@@ -17,16 +17,15 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
-public class OrderServiceImpl implements OrderService{
+public class OrderService {
     private final OrderRepository orderRepository;
     private final OrderDetailRepository orderDetailRepository;
     private final BookService bookService;
-    @Override
+    
     public Page<OrderResponse> findAll(Pageable pageable) {
         return orderRepository.findAll(pageable).map(OrderResponse::fromOrder);
     }
-
-    @Override
+    
     @Transactional(rollbackFor = {CustomNoResultException.class,Exception.class})
     public OrderResponse create(OrderRequest orderRequest,String userId) {
         List<OrderDetail> list = new LinkedList<>();
@@ -44,8 +43,7 @@ public class OrderServiceImpl implements OrderService{
         order.setOrderDetails(orderDetailRepository.saveAll(list));
         return OrderResponse.fromOrder(order);
     }
-
-    @Override
+    
     @Transactional(rollbackFor = {CustomNoResultException.class,Exception.class})
     public OrderResponse update(String id , OrderRequest orderRequest) {
         Order order = orderRepository.findById(UUID.fromString(id)).orElseThrow(() -> new CustomNoResultException(Order.class ,"Not found order id " +id));
@@ -53,22 +51,19 @@ public class OrderServiceImpl implements OrderService{
         order.setStatus(orderRequest.getStatus());
         return OrderResponse.fromOrder(order);
     }
-
-    @Override
+    
     public OrderResponse findById(String id) {
         Order order = orderRepository.findById(UUID.fromString(id)).orElseThrow(() -> new CustomNoResultException(Order.class, "Not found order id " + id));
         return OrderResponse.fromOrder(order);
     }
-
-    @Override
+    
     @Transactional(rollbackFor = {CustomNoResultException.class,Exception.class})
     public OrderResponse remove(String id) {
         Order order = orderRepository.findById(UUID.fromString(id)).orElseThrow(() -> new CustomNoResultException(Order.class ,"Not found order id " +id));
         order.setStatus(OrderStatus.CANCELLED);
         return  OrderResponse.fromOrder(orderRepository.save(order));
     }
-
-    @Override
+    
     @Transactional(rollbackFor = {CustomNoResultException.class,Exception.class})
     public OrderResponse updateStatus(String id , OrderRequest orderRequest) {
         Order order = orderRepository.findById(UUID.fromString(id)).orElseThrow(() -> new CustomNoResultException(Order.class ,"Not found order id " +id));

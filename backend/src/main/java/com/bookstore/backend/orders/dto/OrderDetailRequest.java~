@@ -1,4 +1,4 @@
-package com.bookstore.backend.orders.dto;
+package com.bookstore.backend.orders;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

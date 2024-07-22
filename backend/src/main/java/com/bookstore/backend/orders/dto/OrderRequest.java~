@@ -1,4 +1,4 @@
-package com.bookstore.backend.orders.dto;
+package com.bookstore.backend.orders;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

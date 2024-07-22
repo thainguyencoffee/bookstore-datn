@@ -3,9 +3,12 @@ package com.bookstore.backend.orders;
 import com.bookstore.backend.books.Book;
 import com.bookstore.backend.books.BookRepository;
 import com.bookstore.backend.books.BookService;
+import com.bookstore.backend.orders.dto.OrderDetailRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.awt.print.Book;
 
 @Entity
 @Table(name = "order_details")
