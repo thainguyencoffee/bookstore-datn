@@ -3,6 +3,8 @@ package com.bookstore.backend.orders;
 import com.bookstore.backend.IntegrationTestsBase;
 import com.bookstore.backend.books.Book;
 import com.bookstore.backend.books.BookRepository;
+import com.bookstore.backend.orders.dto.OrderDetailRequest;
+import com.bookstore.backend.orders.dto.OrderRequest;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
