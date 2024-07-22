@@ -20,12 +20,25 @@ public class SecurityConfig {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.GET, "/api/books/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/books").hasAnyRole("employee", "admin")
-                        .requestMatchers(HttpMethod.PATCH, "/api/books/**").hasAnyRole("employee", "admin")
-                        .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasAnyRole("employee", "admin")
-                        .requestMatchers(HttpMethod.GET,"/api/vouchers/**").permitAll()
-                        .anyRequest().authenticated()
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/books/{isbn}/reviews",
+                                "/api/books/{isbn}/reviews/{id}",
+                                "/api/books",
+                                "/api/books/{isbn}").permitAll()
+
+                        .requestMatchers(HttpMethod.POST,
+                                "/api/books/{isbn}/reviews",
+                                "/api/books/{isbn}/reviews/{id}").authenticated()
+
+                        .requestMatchers(HttpMethod.PATCH,
+                                "/api/books/{isbn}/reviews/**",
+                                "/api/books/{isbn}/reviews/{id}").authenticated()
+
+                        .requestMatchers(HttpMethod.DELETE,
+                                "/api/books/{isbn}/reviews/**",
+                                "/api/books/{isbn}/reviews/{id}").authenticated()
+
+                        .anyRequest().hasAnyRole("admin", "employee")
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
                 .sessionManagement(sessionManagement -> sessionManagement

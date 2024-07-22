@@ -8,8 +8,8 @@ public class CustomNoResultException extends NoResultException {
 
     private final Class<?> clazz;
 
-    public CustomNoResultException(final Class<?> clazz, String message) {
-        super(message);
+    public CustomNoResultException(final Class<?> clazz, Object id) {
+        super("No result found for " + clazz.getSimpleName() + " with id " + id);
         this.clazz = clazz;
     }
 }

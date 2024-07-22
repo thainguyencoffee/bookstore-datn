@@ -2,7 +2,6 @@ package com.bookstore.backend;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import dasniko.testcontainers.keycloak.KeycloakContainer;
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
@@ -11,31 +10,24 @@ import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers
 public abstract class IntegrationTestsBase {
 
-	public static KeycloakToken employeeToken;
-	public static KeycloakToken customerToken;
-
-	@Container
-	private static final KeycloakContainer keycloakContainer =
-			new KeycloakContainer("quay.io/keycloak/keycloak:23.0")
-					.withRealmImportFile("bookstore-realm.json");
+	protected static KeycloakToken employeeToken;
+	protected static KeycloakToken customerToken;
 
 	@DynamicPropertySource
 	static void keycloakProperties(DynamicPropertyRegistry registry) {
-		registry.add("spring.security.oauth2.resourceserver.jwt.issuer-uri",
-				() -> keycloakContainer.getAuthServerUrl() + "/realms/bookstore");
+		KeycloakTestContainer.keycloakProperties(registry);
 	}
 
 	@BeforeAll
 	static void generateAccessToken() {
 		WebClient webClient = WebClient.builder()
-				.baseUrl(keycloakContainer.getAuthServerUrl() +
+				.baseUrl(KeycloakTestContainer.getInstance().getAuthServerUrl() +
 						"/realms/bookstore/protocol/openid-connect/token")
 				.defaultHeader(HttpHeaders.CONTENT_TYPE,
 						MediaType.APPLICATION_FORM_URLENCODED_VALUE)
