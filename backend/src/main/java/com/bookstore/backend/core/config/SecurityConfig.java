@@ -27,16 +27,22 @@ public class SecurityConfig {
                                 "/api/books/{isbn}",
                                 "/api/vouchers/**").permitAll()
 
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/orders",
+                                "/api/orders/{id}").authenticated()
                         .requestMatchers(HttpMethod.POST,
                                 "/api/books/{isbn}/reviews",
+                                "/api/orders/{id}",
                                 "/api/books/{isbn}/reviews/{id}").authenticated()
 
                         .requestMatchers(HttpMethod.PATCH,
                                 "/api/books/{isbn}/reviews/**",
+                                "/api/orders/{id}",
                                 "/api/books/{isbn}/reviews/{id}").authenticated()
 
                         .requestMatchers(HttpMethod.DELETE,
                                 "/api/books/{isbn}/reviews/**",
+                                "/api/orders/{id}",
                                 "/api/books/{isbn}/reviews/{id}").authenticated()
 
                         .anyRequest().hasAnyRole("admin", "employee")
