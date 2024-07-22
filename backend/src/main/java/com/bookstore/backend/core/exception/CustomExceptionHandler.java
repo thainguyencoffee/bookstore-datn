@@ -1,6 +1,7 @@
 package com.bookstore.backend.core.exception;
 
 import com.bookstore.backend.core.ApiError;
+import com.bookstore.backend.vouchers.Voucher;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -41,6 +42,15 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
             errors.add(new ApiError.ErrorInfo(error.getObjectName(), fieldError.getField(), fieldError.getRejectedValue(), error.getDefaultMessage()));
         });
         return new ResponseEntity<>(new ApiError(errors), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(VoucherDateConflictException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ApiError handleVoucherDateConflictException(VoucherDateConflictException e) {
+        ApiError.ErrorInfo errorInfo = new ApiError.ErrorInfo();
+        errorInfo.setMessage(e.getMessage());
+        errorInfo.setEntity(Voucher.class.getSimpleName());
+        return new ApiError(List.of(errorInfo));
     }
 
 }
