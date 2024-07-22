@@ -30,6 +30,8 @@ public class ReviewIntegrationTests extends IntegrationTestsBase {
         Book book = new Book();
         book.setIsbn("1234567890");
         book.setTitle("Book Title");
+        book.setAuthor("Author");
+        book.setPrice(120000000L);
         bookRepository.save(book);
 
         webTestClient.get().uri("/api/books/1234567890/reviews")
@@ -42,6 +44,8 @@ public class ReviewIntegrationTests extends IntegrationTestsBase {
         Book book = new Book();
         book.setIsbn("1234567890");
         book.setTitle("Book Title");
+        book.setAuthor("Author");
+        book.setPrice(120000000L);
 
         Review review = new Review();
         review.setBook(book);
@@ -73,6 +77,8 @@ public class ReviewIntegrationTests extends IntegrationTestsBase {
         Book book = new Book();
         book.setIsbn("1234567890");
         book.setTitle("Book Title");
+        book.setAuthor("Author");
+        book.setPrice(120000000L);
         bookRepository.save(book);
 
         var reviewDto = new ReviewCreationDto(3, "This is a good book");
@@ -94,6 +100,8 @@ public class ReviewIntegrationTests extends IntegrationTestsBase {
         Book book = new Book();
         book.setIsbn("1234567890");
         book.setTitle("Book Title");
+        book.setAuthor("Author");
+        book.setPrice(120000000L);
         bookRepository.save(book);
 
         var reviewDto = new ReviewCreationDto(-1, "This is a good book");
@@ -121,6 +129,8 @@ public class ReviewIntegrationTests extends IntegrationTestsBase {
         Book book = new Book();
         book.setIsbn("1234567890");
         book.setTitle("Book Title");
+        book.setAuthor("Author");
+        book.setPrice(120000000L);
 
         Review review = new Review();
         review.setBook(book);
@@ -141,6 +151,8 @@ public class ReviewIntegrationTests extends IntegrationTestsBase {
         Book book = new Book();
         book.setIsbn("1234567890");
         book.setTitle("Book Title");
+        book.setAuthor("Author");
+        book.setPrice(120000000L);
         bookRepository.save(book);
 
         webTestClient
@@ -155,6 +167,8 @@ public class ReviewIntegrationTests extends IntegrationTestsBase {
         Book book = new Book();
         book.setIsbn("1234567890");
         book.setTitle("Book Title");
+        book.setAuthor("Author");
+        book.setPrice(120000000L);
 
         Review review = new Review();
         review.setBook(book);
@@ -179,6 +193,8 @@ public class ReviewIntegrationTests extends IntegrationTestsBase {
         Book book = new Book();
         book.setIsbn("1234567890");
         book.setTitle("Book Title");
+        book.setAuthor("Author");
+        book.setPrice(120000000L);
         bookRepository.save(book);
 
         var reviewIdNotExisting = 100L;
@@ -195,6 +211,8 @@ public class ReviewIntegrationTests extends IntegrationTestsBase {
         Book book = new Book();
         book.setIsbn("1234567890");
         book.setTitle("Book Title");
+        book.setAuthor("Author");
+        book.setPrice(120000000L);
 
         Review review = new Review();
         review.setBook(book);
