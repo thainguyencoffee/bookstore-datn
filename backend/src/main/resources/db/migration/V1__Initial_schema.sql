@@ -12,6 +12,7 @@ CREATE TABLE books
     version            INTEGER                                 NOT NULL,
     CONSTRAINT pk_books PRIMARY KEY (id)
 );
+
 CREATE TABLE vouchers
 (
     id               BIGSERIAL PRIMARY KEY,
@@ -28,7 +29,6 @@ CREATE TABLE vouchers
     status           INTEGER,
     version          int          NOT NULL
 );
-
 
 CREATE TABLE reviews
 (
