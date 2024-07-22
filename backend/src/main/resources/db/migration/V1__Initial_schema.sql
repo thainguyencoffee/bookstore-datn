@@ -12,4 +12,21 @@ CREATE TABLE books
     version            INTEGER                                 NOT NULL,
     CONSTRAINT pk_books PRIMARY KEY (id)
 );
+CREATE TABLE vouchers
+(
+    id               BIGSERIAL PRIMARY KEY,
+    code             VARCHAR(255) NOT NULL UNIQUE,
+    type             VARCHAR(50)  NOT NULL,
+    value            BIGINT       NOT NULL,
+    quantity         INTEGER      NOT NULL,
+    start_date        TIMESTAMP    NOT NULL,
+    end_date          TIMESTAMP    NOT NULL,
+    created_by        VARCHAR(255) NOT NULL,
+    created_date      TIMESTAMP    NOT NULL,
+    last_modified_by   VARCHAR(255) NOT NULL,
+    last_modified_date TIMESTAMP    NOT NULL,
+    status           INTEGER,
+    version          int          NOT NULL
+);
+
 

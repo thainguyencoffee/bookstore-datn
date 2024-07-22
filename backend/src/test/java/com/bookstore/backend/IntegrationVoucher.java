@@ -5,7 +5,6 @@ import com.bookstore.backend.vouchers.Voucher;
 import com.bookstore.backend.vouchers.VoucherRepository;
 import com.bookstore.backend.vouchers.dto.VoucherRequest;
 import com.bookstore.backend.vouchers.dto.VoucherUpdateRequest;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,8 +54,6 @@ public class IntegrationVoucher extends IntegrationTestsBase {
                 .build();
         Voucher v = repository.save(voucher);
         Long voucherId = v.getId();
-        System.out.println(v);
-        System.out.println("List voucher" + repository.findAll().size());
         webTestClient.get()
                 .uri("/api/vouchers/{id}", voucherId)
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(customerToken.getAccessToken()))
@@ -80,7 +77,6 @@ public class IntegrationVoucher extends IntegrationTestsBase {
                 .lastModifiedDate(Instant.now())
                 .status(1)
                 .build();
-        Voucher v = repository.save(voucher);
         System.out.println("List voucher" + repository.findAll().size());
         webTestClient.get()
                 .uri("/api/vouchers/{id}", 2)
@@ -280,15 +276,9 @@ public class IntegrationVoucher extends IntegrationTestsBase {
                 .build();
 
         Voucher v = repository.save(voucher);
-
-        // Log the ID to ensure it's saved correctly
-        System.out.println("Voucher ID: " + v.getId());
-        Long id= voucher.getId();
-        System.out.println(voucher);
-
         webTestClient
                 .delete()
-                .uri(String.format("/api/vouchers/%d", id)) // Sử dụng ID được trả về từ việc lưu
+                .uri(String.format("/api/vouchers/%d", v.getId())) // Sử dụng ID được trả về từ việc lưu
                 .headers(httpHeaders -> httpHeaders.setBearerAuth(employeeToken.getAccessToken()))
                 .exchange()
                 .expectStatus()

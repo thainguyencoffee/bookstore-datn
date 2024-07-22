@@ -28,7 +28,7 @@ import java.time.Instant;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "voucher")
+@Table(name = "vouchers")
 @ToString
 public class Voucher {
     @Id

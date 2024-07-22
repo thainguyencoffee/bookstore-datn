@@ -50,10 +50,11 @@ public class VoucherServiceImpl implements VoucherService {
 
     @Override
     public void deleteVoucherById(Long id) {
-        if(repository.findById(id).isPresent()){
+        if(repository.findById(id).isPresent()) {
             repository.deleteById(id);
-        }
+        }else {
             throw new CustomNoResultException(Voucher.class,String.format("Voucher by %s not found", id));
+        }
     }
 
     @Override

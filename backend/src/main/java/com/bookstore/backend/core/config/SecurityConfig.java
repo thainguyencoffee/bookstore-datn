@@ -24,6 +24,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/books").hasAnyRole("employee", "admin")
                         .requestMatchers(HttpMethod.PATCH, "/api/books/**").hasAnyRole("employee", "admin")
                         .requestMatchers(HttpMethod.DELETE, "/api/books/**").hasAnyRole("employee", "admin")
+                        .requestMatchers(HttpMethod.GET,"/api/vouchers/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))

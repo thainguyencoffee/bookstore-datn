@@ -8,7 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,14 +21,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/vouchers",produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/vouchers")
 public class VoucherController {
-    private final VoucherService voucherService;
 
-    @RequestMapping("")
-    @ResponseStatus(HttpStatus.OK)
-    public Page<Voucher> getAll(Pageable pageable){
-        return voucherService.getAll(pageable);
+    private final VoucherService voucherService;
+    private final VoucherRepository repository;
+
+//    @RequestMapping("")
+//    @ResponseStatus(HttpStatus.OK)
+//    public Page<Voucher> getAll(Pageable pageable){
+//        return voucherService.getAll(pageable);
+//    }
+    @GetMapping("/list")
+    public ResponseEntity<?> getAll(){
+        return new ResponseEntity<>(repository.findAll(),HttpStatus.OK);
     }
 
     @RequestMapping("/code/{code}")
@@ -56,6 +64,5 @@ public class VoucherController {
     public void removeVoucher(@PathVariable Long id){
         voucherService.deleteVoucherById(id);
     }
-
 
 }
