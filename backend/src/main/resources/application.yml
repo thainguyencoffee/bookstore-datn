@@ -15,7 +15,7 @@ spring:
           issuer-uri: http://localhost:8080/realms/bookstore
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
   sql:
     init:
       mode: always
