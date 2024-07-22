@@ -25,19 +25,20 @@ public class SecurityConfig {
                                 "/api/books/{isbn}/reviews/{id}",
                                 "/api/books",
                                 "/api/books/{isbn}").permitAll()
-
+                        .requestMatchers(HttpMethod.GET,
+                                "/api/orders").authenticated()
                         .requestMatchers(HttpMethod.POST,
                                 "/api/books/{isbn}/reviews",
+                                "/api/orders",
                                 "/api/books/{isbn}/reviews/{id}").authenticated()
-
                         .requestMatchers(HttpMethod.PATCH,
                                 "/api/books/{isbn}/reviews/**",
+                                "/api/orders/**",
                                 "/api/books/{isbn}/reviews/{id}").authenticated()
-
                         .requestMatchers(HttpMethod.DELETE,
                                 "/api/books/{isbn}/reviews/**",
+                                "/api/orders/**",
                                 "/api/books/{isbn}/reviews/{id}").authenticated()
-
                         .anyRequest().hasAnyRole("admin", "employee")
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
